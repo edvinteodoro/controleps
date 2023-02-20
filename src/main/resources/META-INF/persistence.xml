@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="gt.edu.cunoc_control-eps_war_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>gt.edu.cunoc.controleps.model.entity.Permission</class>
-    <class>gt.edu.cunoc.controleps.model.entity.User</class>
-    <class>gt.edu.cunoc.controleps.model.entity.Role</class>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <description>Persistence unit for my application</description>
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>gt.edu.cunoc.controleps.entity.User</class>
     <class>gt.edu.cunoc.controleps.model.entity.RolePermission</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Role</class>
+    <class>gt.edu.cunoc.controleps.model.entity.User</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Permission</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Usuario</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Carrera</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Etapa</class>
+    <class>gt.edu.cunoc.controleps.model.entity.EtapasProyecto</class>
+    <class>gt.edu.cunoc.controleps.model.entity.ElementosProyecto</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Permisos</class>
+    <class>gt.edu.cunoc.controleps.model.entity.CarrerasUsuario</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Rol</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Bitacora</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Elemento</class>
+    <class>gt.edu.cunoc.controleps.model.entity.ProyectoEps</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Constantes</class>
+    <class>gt.edu.cunoc.controleps.model.entity.EstadoEps</class>
+    <class>gt.edu.cunoc.controleps.model.entity.Comentario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/datos_eps?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/datos_eps"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value="Root.3161"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

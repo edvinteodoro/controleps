@@ -4,10 +4,15 @@
  */
 package gt.edu.cunoc.controleps.service;
 
+import gt.edu.cunoc.controleps.model.dto.ProyectoDto;
+import gt.edu.cunoc.controleps.model.entity.ProyectoEps;
+
 /**
  *
  * @author edvin
  */
 public interface ProyectoService {
-    
+
+    public ProyectoEps crearProyectoEps(ProyectoDto proyectoDto, String usuario);
+
 }

@@ -5,17 +5,9 @@
 package gt.edu.cunoc.controleps.model.entity;
 
 import java.io.Serializable;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 /**
  *
@@ -35,7 +27,7 @@ public class CarrerasUsuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_usuario_carrera")
     private Integer idUsuarioCarrera;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "INTENTOS")
     private int intentos;
     @JoinColumn(name = "id_carrera_fk", referencedColumnName = "id_carrera")
@@ -45,7 +37,20 @@ public class CarrerasUsuario implements Serializable {
     @ManyToOne(optional = false)
     private Usuario idUsuarioFk;
 
-    public CarrerasUsuario() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasSupervisorFk")
+    private List<ProyectoEps> proyectoEpsSupervisorList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasAsesorFk")
+    private List<ProyectoEps> proyectoEpsAsesorList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasUsuarioFk")
+    private List<ProyectoEps> proyectoEpsList;
+
+    public CarrerasUsuario(){
+    }
+    
+    public CarrerasUsuario(Carrera carrera, Usuario usuario) {
+        this.idCarreraFk = carrera;
+        this.idUsuarioFk = usuario;
     }
 
     public CarrerasUsuario(Integer idUsuarioCarrera) {
@@ -87,6 +92,30 @@ public class CarrerasUsuario implements Serializable {
 
     public void setIdUsuarioFk(Usuario idUsuarioFk) {
         this.idUsuarioFk = idUsuarioFk;
+    }
+
+    public List<ProyectoEps> getProyectoEpsSupervisorList() {
+        return proyectoEpsSupervisorList;
+    }
+
+    public void setProyectoEpsSupervisorList(List<ProyectoEps> proyectoEpsSupervisorList) {
+        this.proyectoEpsSupervisorList = proyectoEpsSupervisorList;
+    }
+
+    public List<ProyectoEps> getProyectoEpsAsesorList() {
+        return proyectoEpsAsesorList;
+    }
+
+    public void setProyectoEpsAsesorList(List<ProyectoEps> proyectoEpsAsesorList) {
+        this.proyectoEpsAsesorList = proyectoEpsAsesorList;
+    }
+
+    public List<ProyectoEps> getProyectoEpsList() {
+        return proyectoEpsList;
+    }
+
+    public void setProyectoEpsList(List<ProyectoEps> proyectoEpsList) {
+        this.proyectoEpsList = proyectoEpsList;
     }
 
     @Override

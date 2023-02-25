@@ -8,6 +8,7 @@ import gt.edu.cunoc.controleps.model.dto.UsuarioDto;
 import gt.edu.cunoc.controleps.service.UsuarioService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,12 +32,11 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<UsuarioDto>> getUsuarios() {
-        List<UsuarioDto> userList = new ArrayList<>();
-        userList.add(new UsuarioDto(usuarioService.getAll().get(0)));
-        return ResponseEntity.ok(userList);
+        List<UsuarioDto> userList = usuarioService.getAll().stream()
+                .map(usuario -> new UsuarioDto(usuario)).collect(Collectors.toList());
+        return ResponseEntity.ok(userList); 
     }
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_Secretaria')")
     public ResponseEntity<UsuarioDto> crearUsuario(@RequestBody UsuarioDto usuarioDto) throws Exception {
         System.out.println("create user");
         return ResponseEntity.ok(new UsuarioDto(usuarioService.crearUsuario(usuarioDto)));
@@ -46,4 +46,5 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDto> actualizarUsuario(@RequestBody UsuarioDto usuarioDto) throws Exception {
         return ResponseEntity.ok(new UsuarioDto(usuarioService.crearUsuario(usuarioDto)));
     }
+    
 }

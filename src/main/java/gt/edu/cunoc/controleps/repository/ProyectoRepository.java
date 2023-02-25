@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package gt.edu.cunoc.controleps.model.repository;
+package gt.edu.cunoc.controleps.repository;
 
-import gt.edu.cunoc.controleps.model.entity.Rol;
+import gt.edu.cunoc.controleps.model.entity.ProyectoEps;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author edvin
  */
-@Repository
-public interface RolRepository extends JpaRepository<Rol,Integer>{
-    public Rol findByIdRol(Integer idRol);
+public interface ProyectoRepository extends JpaRepository<ProyectoEps, Integer>{
+
 }

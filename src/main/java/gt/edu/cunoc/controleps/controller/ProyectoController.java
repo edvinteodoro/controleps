@@ -5,7 +5,12 @@
 package gt.edu.cunoc.controleps.controller;
 
 import gt.edu.cunoc.controleps.model.dto.ProyectoDto;
+import gt.edu.cunoc.controleps.model.entity.Usuario;
+import gt.edu.cunoc.controleps.service.CarreraService;
 import gt.edu.cunoc.controleps.service.ProyectoService;
+import java.security.Principal;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +26,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/proyectos")
 public class ProyectoController {
     private final ProyectoService proyectoService;
+    private final CarreraService carreraService;
 
-    public ProyectoController(ProyectoService proyectoService) {
+    public ProyectoController(ProyectoService proyectoService, CarreraService carreraService) {
         this.proyectoService = proyectoService;
+        this.carreraService = carreraService;
     }
     
     @PostMapping
-    public ResponseEntity crearProyecto(@RequestBody ProyectoDto proyectoDto){
-        return null;
+    public ResponseEntity crearProyecto(@RequestBody ProyectoDto proyectoDto,Principal principal){
+        try {
+            return ResponseEntity.ok(proyectoService.crearProyectoEps(proyectoDto,principal.getName()));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }

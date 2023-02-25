@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,7 +26,9 @@ public class UsuarioDto {
     private String numeroColegiado;
     private String telefono;
     private String dpi;
-    private String estado;
+    private String direccion;
+    private String estadoCuenta;
+    private List<CarreraDto> carreras;
     //private String mobile;
     //private Date registeredAt;
     //private Date lastLogin;
@@ -40,12 +44,15 @@ public class UsuarioDto {
         this.fechaNacimiento = usuario.getFechaNacimiento();
         this.nombres = usuario.getNombres();
         this.apellidos = usuario.getApellidos();
-        this.registroAcademico=usuario.getRegistroAcademico();
-        this.numeroColegiado=usuario.getNumeroColegiado();
-        this.estado="ACTIVO";
-        this.telefono="31615293";
-        this.dpi="3218359051323";
-        this.rol=new RolDto(usuario.getIdRolFk());
+        this.registroAcademico = usuario.getRegistroAcademico();
+        this.numeroColegiado = usuario.getNumeroColegiado();
+        this.estadoCuenta = usuario.getEstadoCuenta();
+        this.telefono = usuario.getTelefono();
+        this.dpi = usuario.getDpi();
+        this.direccion = usuario.getDirreccion();
+        this.rol = new RolDto(usuario.getIdRolFk());
+        this.carreras = usuario.getCarrerasUsuarioList().stream()
+                .map(usuarioCarrera -> new CarreraDto(usuarioCarrera.getIdCarreraFk())).collect(Collectors.toList());
     }
 
     public Integer getIdUsuario() {
@@ -120,14 +127,22 @@ public class UsuarioDto {
         this.dpi = dpi;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getEstadoCuenta() {
+        return estadoCuenta;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoCuenta(String estado) {
+        this.estadoCuenta = estado;
     }
-    
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     public RolDto getRol() {
         return rol;
     }
@@ -135,6 +150,12 @@ public class UsuarioDto {
     public void setRol(RolDto rol) {
         this.rol = rol;
     }
-    
-    
+
+    public List<CarreraDto> getCarreras() {
+        return carreras;
+    }
+
+    public void setCarreras(List<CarreraDto> carreras) {
+        this.carreras = carreras;
+    }
 }

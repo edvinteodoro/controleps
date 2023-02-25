@@ -55,15 +55,15 @@ public class ProyectoEps implements Serializable {
     @JoinColumn(name = "id_estado_eps_fk", referencedColumnName = "id_estado_eps")
     @ManyToOne(optional = false)
     private EstadoEps idEstadoEpsFk;
-    @JoinColumn(name = "id_estudiante_fk", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "id_carreras_usuario_fk", referencedColumnName = "id_usuario_carrera")
     @ManyToOne(optional = false)
-    private Usuario idEstudianteFk;
-    @JoinColumn(name = "id_supervisor_fk", referencedColumnName = "id_usuario")
+    private CarrerasUsuario idCarrerasUsuarioFk;
+    @JoinColumn(name = "id_carreras_supervisor_fk", referencedColumnName = "id_usuario_carrera")
     @ManyToOne(optional = false)
-    private Usuario idSupervisorFk;
-    @JoinColumn(name = "id_asesor_fk", referencedColumnName = "id_usuario")
+    private CarrerasUsuario idCarrerasSupervisorFk;
+    @JoinColumn(name = "id_carreras_asesor_fk", referencedColumnName = "id_usuario_carrera")
     @ManyToOne(optional = false)
-    private Usuario idAsesorFk;
+    private CarrerasUsuario idCarrerasAsesorFk;
     @JoinColumn(name = "id_secretaria_fk", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idSecretariaFk;
@@ -121,28 +121,28 @@ public class ProyectoEps implements Serializable {
         this.idEstadoEpsFk = idEstadoEpsFk;
     }
 
-    public Usuario getIdEstudianteFk() {
-        return idEstudianteFk;
+    public CarrerasUsuario getIdCarrerasUsuarioFk() {
+        return idCarrerasUsuarioFk;
     }
 
-    public void setIdEstudianteFk(Usuario idEstudianteFk) {
-        this.idEstudianteFk = idEstudianteFk;
+    public void setIdCarrerasUsuarioFk(CarrerasUsuario idCarrerasUsuarioFk) {
+        this.idCarrerasUsuarioFk = idCarrerasUsuarioFk;
     }
 
-    public Usuario getIdSupervisorFk() {
-        return idSupervisorFk;
+    public CarrerasUsuario getIdCarrerasSupervisorFk() {
+        return idCarrerasSupervisorFk;
     }
 
-    public void setIdSupervisorFk(Usuario idSupervisorFk) {
-        this.idSupervisorFk = idSupervisorFk;
+    public void setIdCarrerasSupervisorFk(CarrerasUsuario idCarrerasSupervisorFk) {
+        this.idCarrerasSupervisorFk = idCarrerasSupervisorFk;
     }
 
-    public Usuario getIdAsesorFk() {
-        return idAsesorFk;
+    public CarrerasUsuario getIdCarrerasAsesorFk() {
+        return idCarrerasAsesorFk;
     }
 
-    public void setIdAsesorFk(Usuario idAsesorFk) {
-        this.idAsesorFk = idAsesorFk;
+    public void setIdCarrerasAsesorFk(CarrerasUsuario idCarrerasAsesorFk) {
+        this.idCarrerasAsesorFk = idCarrerasAsesorFk;
     }
 
     public Usuario getIdSecretariaFk() {

@@ -8,7 +8,7 @@ import gt.edu.cunoc.controleps.model.dto.RolDto;
 import gt.edu.cunoc.controleps.model.entity.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import gt.edu.cunoc.controleps.model.repository.RolRepository;
+import gt.edu.cunoc.controleps.repository.RolRepository;
 import gt.edu.cunoc.controleps.service.RolService;
 import java.util.List;
 

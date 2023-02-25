@@ -6,9 +6,10 @@ package gt.edu.cunoc.controleps.service.imp;
 
 import gt.edu.cunoc.controleps.model.dto.CarreraDto;
 import gt.edu.cunoc.controleps.model.entity.Carrera;
-import gt.edu.cunoc.controleps.model.repository.CarreraRepository;
+import gt.edu.cunoc.controleps.repository.CarreraRepository;
 import gt.edu.cunoc.controleps.service.CarreraService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,11 @@ public class CarreraServiceImp implements CarreraService {
         Carrera carrera=new Carrera();
         carrera.setTitulo(carreraDto.getTitulo()); 
         return carreraRepository.save(carrera);
+    }
+
+    @Override
+    public Optional<Carrera> getCarreraEstudiante(Integer idCarrera, String usuario) {
+        return carreraRepository.getCarreraEstudiante(idCarrera, usuario);
     }
     
 }

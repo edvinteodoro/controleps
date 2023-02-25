@@ -59,15 +59,24 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "apellidos")
     private String apellidos;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @Column(name = "registro_academico")
     private String registroAcademico;
     @Basic(optional = true)
-    @Column(name = "carnet")
-    private String carnet;
-    @Basic(optional = true)
     @Column(name = "numero_colegiado")
     private String numeroColegiado;
+    @Basic(optional = false)
+    @Column(name = "dpi")
+    private String dpi;
+    @Basic(optional = false)
+    @Column(name = "direccion")
+    private String direccion;
+    @Basic(optional = false)
+    @Column(name = "telefono")
+    private String telefono;
+    @Basic(optional = false)
+    @Column(name = "estado_cuenta")
+    private String estadoCuenta;
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
@@ -75,12 +84,6 @@ public class Usuario implements Serializable {
     private List<CarrerasUsuario> carrerasUsuarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioFk")
     private List<Comentario> comentarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudianteFk")
-    private List<ProyectoEps> proyectoEpsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSupervisorFk")
-    private List<ProyectoEps> proyectoEpsList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsesorFk")
-    private List<ProyectoEps> proyectoEpsList2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSecretariaFk")
     private List<ProyectoEps> proyectoEpsList3;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioFk")
@@ -101,13 +104,17 @@ public class Usuario implements Serializable {
         this.fechaNacimiento=usuarioDto.getFechaNacimiento();
         this.numeroColegiado=usuarioDto.getNumeroColegiado();
         this.registroAcademico=usuarioDto.getRegistroAcademico();
+        this.direccion=usuarioDto.getDireccion();
+        this.dpi= usuarioDto.getDpi();
+        this.estadoCuenta=usuarioDto.getEstadoCuenta();
+        this.telefono= usuarioDto.getTelefono();
     }
 
     public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String correo, Date fechaNacimiento, String nombres, String apellidos,String registroAcademico, String carnet, String numeroColegiado, String password) {
+    public Usuario(Integer idUsuario, String correo, Date fechaNacimiento, String nombres, String apellidos,String registroAcademico, String numeroColegiado, String dpi, String direccion, String telefono, String estadoCuenta, String password) {
         this.idUsuario = idUsuario;
         this.correo = correo;
         this.fechaNacimiento = fechaNacimiento;
@@ -115,8 +122,11 @@ public class Usuario implements Serializable {
         this.apellidos = apellidos;
         this.password = password;
         this.registroAcademico=registroAcademico;
-        this.carnet=carnet;
         this.numeroColegiado=numeroColegiado;
+        this.dpi=dpi;
+        this.direccion=direccion;
+        this.telefono=telefono;
+        this.estadoCuenta=estadoCuenta;
     }
 
     public Integer getIdUsuario() {
@@ -167,20 +177,44 @@ public class Usuario implements Serializable {
         this.registroAcademico = registroAcademico;
     }
 
-    public String getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(String carnet) {
-        this.carnet = carnet;
-    }
-
     public String getNumeroColegiado() {
         return numeroColegiado;
     }
 
     public void setNumeroColegiado(String numeroColegiado) {
         this.numeroColegiado = numeroColegiado;
+    }
+
+    public String getDpi() {
+        return dpi;
+    }
+
+    public void setDpi(String dpi) {
+        this.dpi = dpi;
+    }
+
+    public String getDirreccion() {
+        return direccion;
+    }
+
+    public void setDirreccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEstadoCuenta() {
+        return estadoCuenta;
+    }
+
+    public void setEstadoCuenta(String estadoCuenta) {
+        this.estadoCuenta = estadoCuenta;
     }
 
     public String getPassword() {
@@ -205,30 +239,6 @@ public class Usuario implements Serializable {
 
     public void setComentarioList(List<Comentario> comentarioList) {
         this.comentarioList = comentarioList;
-    }
-
-    public List<ProyectoEps> getProyectoEpsList() {
-        return proyectoEpsList;
-    }
-
-    public void setProyectoEpsList(List<ProyectoEps> proyectoEpsList) {
-        this.proyectoEpsList = proyectoEpsList;
-    }
-
-    public List<ProyectoEps> getProyectoEpsList1() {
-        return proyectoEpsList1;
-    }
-
-    public void setProyectoEpsList1(List<ProyectoEps> proyectoEpsList1) {
-        this.proyectoEpsList1 = proyectoEpsList1;
-    }
-
-    public List<ProyectoEps> getProyectoEpsList2() {
-        return proyectoEpsList2;
-    }
-
-    public void setProyectoEpsList2(List<ProyectoEps> proyectoEpsList2) {
-        this.proyectoEpsList2 = proyectoEpsList2;
     }
 
     public List<ProyectoEps> getProyectoEpsList3() {

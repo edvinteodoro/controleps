@@ -5,7 +5,7 @@
 package gt.edu.cunoc.controleps.service.imp;
 
 import gt.edu.cunoc.controleps.model.entity.Usuario;
-import gt.edu.cunoc.controleps.model.repository.UsuarioRepository;
+import gt.edu.cunoc.controleps.repository.UsuarioRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -36,6 +36,7 @@ public class CarreraController {
     
     @PostMapping
     public ResponseEntity<CarreraDto> crearCarrera(@RequestBody CarreraDto carreraDto) {
+        System.out.println("carrera post");
         return ResponseEntity.ok(carreraDto);
     }
 }

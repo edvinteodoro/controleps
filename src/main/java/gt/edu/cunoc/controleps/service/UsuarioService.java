@@ -7,6 +7,7 @@ package gt.edu.cunoc.controleps.service;
 import gt.edu.cunoc.controleps.model.dto.UsuarioDto;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -16,4 +17,6 @@ public interface UsuarioService {
     public List<Usuario> getAll();
     public Usuario crearUsuario(UsuarioDto usuarioDto);
     public Usuario actualizarUsuario(UsuarioDto usuarioDto);
+    public Usuario getUsuarioDisponible(Integer idCarrera,Integer idRol);
+    public Optional<Usuario> getUsuarioPorRegistor(String registroAcademico);
 }

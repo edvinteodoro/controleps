@@ -25,12 +25,20 @@
             <id>localEdvin</id>
             <properties>
                 <databaseUrl>jdbc:mysql://localhost:3306/datos_eps</databaseUrl>
-                <databaseUser>root</databaseUser>
+                <databaseUser>eps</databaseUser>
                 <databasePass>Root.3161</databasePass>
                 <portNumber>8080</portNumber>
             </properties>
         </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>com.e-iceblue</id>
+            <name>e-iceblue</name>
+            <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -75,6 +83,13 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.4.0-b180830.0359</version>
         </dependency>
+
+        <dependency>
+            <groupId>e-iceblue</groupId>
+            <artifactId>spire.doc</artifactId>
+            <version>11.2.3</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

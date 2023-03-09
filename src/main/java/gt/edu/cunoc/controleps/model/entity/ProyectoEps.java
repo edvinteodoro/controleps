@@ -43,6 +43,12 @@ public class ProyectoEps implements Serializable {
     @Column(name = "id_anteproyecto")
     private Integer idAnteproyecto;
     @Basic(optional = false)
+    @Column(name = "titulo")
+    private String titulo;
+    @Basic(optional = false)
+    @Column(name = "coordenadas")
+    private String coordenadas;
+    @Basic(optional = false)
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
@@ -75,8 +81,10 @@ public class ProyectoEps implements Serializable {
         this.idAnteproyecto = idAnteproyecto;
     }
 
-    public ProyectoEps(Integer idAnteproyecto, Date fechaInicio, Date fechaFin) {
+    public ProyectoEps(Integer idAnteproyecto, String titulo, String coordenandas, Date fechaInicio, Date fechaFin) {
         this.idAnteproyecto = idAnteproyecto;
+        this.titulo = titulo;
+        this.coordenadas = coordenandas;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
@@ -87,6 +95,22 @@ public class ProyectoEps implements Serializable {
 
     public void setIdAnteproyecto(Integer idAnteproyecto) {
         this.idAnteproyecto = idAnteproyecto;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 
     public Date getFechaInicio() {
@@ -177,5 +201,5 @@ public class ProyectoEps implements Serializable {
     public String toString() {
         return "gt.edu.cunoc.controleps.model.entity.ProyectoEps[ idAnteproyecto=" + idAnteproyecto + " ]";
     }
-    
+
 }

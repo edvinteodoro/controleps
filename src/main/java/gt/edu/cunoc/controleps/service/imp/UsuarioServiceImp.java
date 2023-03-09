@@ -10,15 +10,13 @@ import gt.edu.cunoc.controleps.model.entity.CarrerasUsuario;
 import gt.edu.cunoc.controleps.model.entity.Rol;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import gt.edu.cunoc.controleps.repository.CarreraRepository;
+import gt.edu.cunoc.controleps.repository.CarreraUsuarioRepository;
 import gt.edu.cunoc.controleps.repository.UsuarioRepository;
 import gt.edu.cunoc.controleps.service.UsuarioService;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +30,13 @@ public class UsuarioServiceImp implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final RolServiceImp rolService;
     private final CarreraRepository carreraRepository;
+    private final CarreraUsuarioRepository carreraUsuarioRepository;
 
-    public UsuarioServiceImp(UsuarioRepository usuarioRepository, RolServiceImp rolService, CarreraRepository carreraRepository) {
+    public UsuarioServiceImp(UsuarioRepository usuarioRepository, RolServiceImp rolService, CarreraRepository carreraRepository, CarreraUsuarioRepository carreraUsuarioRepository) {
         this.usuarioRepository = usuarioRepository;
         this.rolService = rolService;
         this.carreraRepository = carreraRepository;
+        this.carreraUsuarioRepository = carreraUsuarioRepository;
     }
 
     @Override
@@ -46,18 +46,24 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario crearUsuario(UsuarioDto usuarioDto) {
+        usuarioDto.setEstadoCuenta("ACTIVO");
         Usuario usuarioNuevo = new Usuario(usuarioDto);
         usuarioNuevo.setPassword(new BCryptPasswordEncoder().encode("test123"));
-        Rol rol = rolService.getRolByIdRol(usuarioDto.getRol().getIdRol());
-        List<CarrerasUsuario> carreras = usuarioDto.getCarreras().stream().map(carreraDto -> {
-            Carrera carrera = carreraRepository.findById(carreraDto.getId())
-                    .orElseThrow(() -> new RuntimeException("No se ha encontrado la carrera seleccionada"));
-            return new CarrerasUsuario(carrera,usuarioNuevo);
-        }).collect(Collectors.toList()); 
+        Rol rol = rolService.getRolByIdRol(usuarioDto.getRol().getIdRol())
+                .orElseThrow(() -> new RuntimeException("No se ha encontrado el usuario"));
         usuarioNuevo.setIdRolFk(rol);
+        if (usuarioDto.getCarreras() != null) {
+            List<CarrerasUsuario> carreras = usuarioDto.getCarreras().stream().map(carreraDto -> {
+                Carrera carrera = carreraRepository.findById(carreraDto.getIdCarrera())
+                        .orElseThrow(() -> new RuntimeException("No se ha encontrado la carrera seleccionada"));
+                return new CarrerasUsuario(carrera, usuarioNuevo);
+            }).collect(Collectors.toList());
+            usuarioNuevo.setCarrerasUsuarioList(carreras);
+        }
         LocalDate currentDate = LocalDate.now();
+        Usuario usuarioGuardado = usuarioRepository.save(usuarioNuevo);
         //usuarioNuevo.setRegisteredAt(Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        return usuarioRepository.save(usuarioNuevo);
+        return usuarioGuardado;
         /*newUser.setFirst_name(user.getFirst_name());
         newUser.setLast_name(user.getLast_name());
         newUser.setEmail(user.getEmail());
@@ -71,8 +77,8 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public Usuario getUsuarioDisponible(Integer idCarrera, Integer idRol) {
-        return usuarioRepository.getUsuarioDisponible(idCarrera, idRol).orElseThrow(() -> new RuntimeException("No se ha encontrado ningun supervisor para esta carrera"));
+    public Optional<Usuario> getUsuarioDisponible(Integer idCarrera, Integer idRol) {
+        return usuarioRepository.getSupervisorDisponible(idCarrera, idRol);
     }
 
     @Override

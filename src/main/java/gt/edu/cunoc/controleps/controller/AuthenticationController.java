@@ -4,8 +4,8 @@
  */
 package gt.edu.cunoc.controleps.controller;
 
-import gt.edu.cunoc.controleps.controller.dto.AuthResponse;
-import gt.edu.cunoc.controleps.controller.dto.LoginRequest;
+import gt.edu.cunoc.controleps.model.dto.AuthResponse;
+import gt.edu.cunoc.controleps.model.dto.LoginRequest;
 import gt.edu.cunoc.controleps.service.imp.UsuarioDetailsServiceImp;
 import gt.edu.cunoc.controleps.utils.JwtUtil;
 import java.util.ArrayList;

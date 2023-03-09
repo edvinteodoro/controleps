@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import gt.edu.cunoc.controleps.repository.RolRepository;
 import gt.edu.cunoc.controleps.service.RolService;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -23,7 +24,7 @@ public class RolServiceImp implements RolService{
     private RolRepository rolRepository;
     
     @Override
-    public Rol getRolByIdRol(Integer idRol) {
+    public Optional<Rol> getRolByIdRol(Integer idRol) {
         return rolRepository.findByIdRol(idRol);
     }
 

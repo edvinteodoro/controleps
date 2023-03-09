@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 public class RolDto {
     private Integer idRol;
     private String titulo;
+    private Boolean contieneCarrera;
+    private Boolean contieneRegistro;
+    private Boolean contieneColegiado;
     private List<PermisoDto> permisos;
 
     public RolDto() {
@@ -23,6 +26,9 @@ public class RolDto {
     public RolDto(Rol rol) {
         this.idRol=rol.getIdRol();
         this.titulo=rol.getTitulo();
+        this.contieneCarrera=rol.getContieneCarrera();
+        this.contieneRegistro=rol.getContieneRegistro();
+        this.contieneColegiado=rol.getContieneColegiado();
         this.permisos=rol.getPermisosList().stream().map(permiso-> new PermisoDto(permiso)).collect(Collectors.toList());
     }
 
@@ -42,6 +48,30 @@ public class RolDto {
         this.titulo = titulo;
     }
 
+    public Boolean getContieneCarrera() {
+        return contieneCarrera;
+    }
+
+    public void setContieneCarrera(Boolean contieneCarrera) {
+        this.contieneCarrera = contieneCarrera;
+    }
+
+    public Boolean getContieneRegistro() {
+        return contieneRegistro;
+    }
+
+    public void setContieneRegistro(Boolean contieneRegistro) {
+        this.contieneRegistro = contieneRegistro;
+    }
+
+    public Boolean getContieneColegiado() {
+        return contieneColegiado;
+    }
+
+    public void setContieneColegiado(Boolean contieneColegiado) {
+        this.contieneColegiado = contieneColegiado;
+    }
+    
     public List<PermisoDto> getPermisos() {
         return permisos;
     }

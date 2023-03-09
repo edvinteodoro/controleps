@@ -4,6 +4,7 @@
  */
 package gt.edu.cunoc.controleps.model.dto;
 
+import gt.edu.cunoc.controleps.model.entity.ProyectoEps;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -11,29 +12,46 @@ import org.springframework.web.multipart.MultipartFile;
  * @author edvin
  */
 public class ProyectoDto {
+    private Integer idProyecto;
     private String titulo;
     private String coordenadas;
-    private Integer idCarrera;
+    private CarreraDto carrera;
     private MultipartFile constanciaInscripcion;
     private MultipartFile constanciaPropedeutico;
     private MultipartFile certificadoNacimiento;
-    private MultipartFile cartaAsosorSupervior;
+    private MultipartFile cartaAsesorSupervisor;
     private MultipartFile anteproyecto;
 
     public ProyectoDto() {
     }
 
-    public ProyectoDto(String titulo, String coordenadas, Integer idCarrera, MultipartFile constanciaInscripcion,
-                       MultipartFile constanciaPropedeutico, MultipartFile certificadoNacimiento, MultipartFile cartaAsosorSupervior,
+    public ProyectoDto(String titulo, String coordenadas, CarreraDto carrera, MultipartFile constanciaInscripcion,
+                       MultipartFile constanciaPropedeutico, MultipartFile certificadoNacimiento, MultipartFile cartaAsesorSupervisor,
                        MultipartFile anteproyecto) {
+        
         this.titulo = titulo;
         this.coordenadas = coordenadas;
-        this.idCarrera = idCarrera;
+        this.carrera = carrera;
         this.constanciaInscripcion = constanciaInscripcion;
         this.constanciaPropedeutico = constanciaPropedeutico;
         this.certificadoNacimiento = certificadoNacimiento;
-        this.cartaAsosorSupervior = cartaAsosorSupervior;
+        this.cartaAsesorSupervisor = cartaAsesorSupervisor;
         this.anteproyecto = anteproyecto;
+    }
+    
+    public ProyectoDto(ProyectoEps proyecto) {
+        this.idProyecto = proyecto.getIdAnteproyecto();
+        this.titulo=proyecto.getTitulo();
+        this.coordenadas=proyecto.getCoordenadas();
+        this.carrera=new CarreraDto(proyecto.getIdCarrerasUsuarioFk().getIdCarreraFk()); 
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
     public String getTitulo() {
@@ -52,12 +70,12 @@ public class ProyectoDto {
         this.coordenadas = coordenadas;
     }
 
-    public Integer getIdCarrera() {
-        return idCarrera;
+    public CarreraDto getCarrera() {
+        return carrera;
     }
 
-    public void setIdCarrera(Integer idCarrera) {
-        this.idCarrera = idCarrera;
+    public void setCarrera(CarreraDto carrera) {
+        this.carrera = carrera;
     }
 
     public MultipartFile getConstanciaInscripcion() {
@@ -84,12 +102,12 @@ public class ProyectoDto {
         this.certificadoNacimiento = certificadoNacimiento;
     }
 
-    public MultipartFile getCartaAsosorSupervior() {
-        return cartaAsosorSupervior;
+    public MultipartFile getCartaAsesorSupervisor() {
+        return cartaAsesorSupervisor;
     }
 
-    public void setCartaAsosorSupervior(MultipartFile cartaAsosorSupervior) {
-        this.cartaAsosorSupervior = cartaAsosorSupervior;
+    public void setCartaAsesorSupervisor(MultipartFile cartaAsesorSupervisor) {
+        this.cartaAsesorSupervisor = cartaAsesorSupervisor;
     }
 
     public MultipartFile getAnteproyecto() {

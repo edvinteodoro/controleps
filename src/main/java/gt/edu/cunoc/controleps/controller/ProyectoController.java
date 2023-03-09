@@ -5,16 +5,16 @@
 package gt.edu.cunoc.controleps.controller;
 
 import gt.edu.cunoc.controleps.model.dto.ProyectoDto;
-import gt.edu.cunoc.controleps.model.entity.Usuario;
 import gt.edu.cunoc.controleps.service.CarreraService;
 import gt.edu.cunoc.controleps.service.ProyectoService;
 import java.security.Principal;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,11 +33,22 @@ public class ProyectoController {
         this.carreraService = carreraService;
     }
     
-    @PostMapping
-    public ResponseEntity crearProyecto(@RequestBody ProyectoDto proyectoDto,Principal principal){
+    @GetMapping
+    public ResponseEntity proyectos(){
         try {
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    @PostMapping
+    public ResponseEntity crearProyecto(@ModelAttribute ProyectoDto proyectoDto,Principal principal){
+        try {
+            System.out.println("proyectoDto: "+proyectoDto.getTitulo());
             return ResponseEntity.ok(proyectoService.crearProyectoEps(proyectoDto,principal.getName()));
         }catch (Exception e){
+            System.out.println("error: "+ e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }

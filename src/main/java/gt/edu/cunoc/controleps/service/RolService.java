@@ -7,6 +7,7 @@ package gt.edu.cunoc.controleps.service;
 import gt.edu.cunoc.controleps.model.dto.RolDto;
 import gt.edu.cunoc.controleps.model.entity.Rol;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.List;
 
 
 public interface RolService {
-    public Rol getRolByIdRol(Integer Id);
+    public Optional<Rol> getRolByIdRol(Integer Id);
     public List<Rol> getAll();
     public Rol crearRol(RolDto rolDto);
     public Rol actualizarRol(RolDto rolDto);

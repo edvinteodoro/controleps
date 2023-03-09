@@ -17,6 +17,6 @@ public interface UsuarioService {
     public List<Usuario> getAll();
     public Usuario crearUsuario(UsuarioDto usuarioDto);
     public Usuario actualizarUsuario(UsuarioDto usuarioDto);
-    public Usuario getUsuarioDisponible(Integer idCarrera,Integer idRol);
+    public Optional<Usuario> getUsuarioDisponible(Integer idCarrera,Integer idRol);
     public Optional<Usuario> getUsuarioPorRegistor(String registroAcademico);
 }

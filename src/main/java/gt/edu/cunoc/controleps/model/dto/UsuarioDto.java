@@ -7,6 +7,8 @@ package gt.edu.cunoc.controleps.model.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,22 +20,42 @@ import java.util.stream.Collectors;
 public class UsuarioDto {
 
     private Integer idUsuario;
+    @NotNull
+    @NotEmpty
     private String correo;
+    @NotNull
+    @NotEmpty
     private Date fechaNacimiento;
+    @NotNull
+    @NotEmpty
     private String nombres;
+    @NotNull
+    @NotEmpty
     private String apellidos;
+    @NotNull
+    @NotEmpty
     private String registroAcademico;
+    @NotNull
+    @NotEmpty
     private String numeroColegiado;
+    @NotNull
+    @NotEmpty
     private String telefono;
+    @NotNull
+    @NotEmpty
     private String dpi;
+    @NotNull
+    @NotEmpty
     private String direccion;
+    @NotNull
+    @NotEmpty
     private String estadoCuenta;
     private List<CarreraDto> carreras;
+    @JsonInclude(Include.NON_NULL)
+    private RolDto rol;
     //private String mobile;
     //private Date registeredAt;
     //private Date lastLogin;
-    @JsonInclude(Include.NON_NULL)
-    private RolDto rol;
 
     public UsuarioDto() {
     }
@@ -51,8 +73,10 @@ public class UsuarioDto {
         this.dpi = usuario.getDpi();
         this.direccion = usuario.getDirreccion();
         this.rol = new RolDto(usuario.getIdRolFk());
-        this.carreras = usuario.getCarrerasUsuarioList().stream()
-                .map(usuarioCarrera -> new CarreraDto(usuarioCarrera.getIdCarreraFk())).collect(Collectors.toList());
+        if (usuario.getCarrerasUsuarioList() != null) {
+            this.carreras = usuario.getCarrerasUsuarioList().stream()
+                    .map(usuarioCarrera -> new CarreraDto(usuarioCarrera.getIdCarreraFk())).collect(Collectors.toList());
+        }
     }
 
     public Integer getIdUsuario() {

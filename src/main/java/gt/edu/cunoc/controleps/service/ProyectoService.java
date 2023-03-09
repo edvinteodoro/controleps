@@ -6,6 +6,7 @@ package gt.edu.cunoc.controleps.service;
 
 import gt.edu.cunoc.controleps.model.dto.ProyectoDto;
 import gt.edu.cunoc.controleps.model.entity.ProyectoEps;
+import java.util.List;
 
 /**
  *
@@ -14,5 +15,6 @@ import gt.edu.cunoc.controleps.model.entity.ProyectoEps;
 public interface ProyectoService {
 
     public ProyectoEps crearProyectoEps(ProyectoDto proyectoDto, String usuario);
-
+    public List<ProyectoEps> getProyectoEps(String usuario);
+    
 }

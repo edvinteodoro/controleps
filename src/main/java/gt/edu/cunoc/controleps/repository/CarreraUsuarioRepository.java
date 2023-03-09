@@ -4,8 +4,7 @@
  */
 package gt.edu.cunoc.controleps.repository;
 
-import gt.edu.cunoc.controleps.model.entity.Rol;
-import java.util.Optional;
+import gt.edu.cunoc.controleps.model.entity.CarrerasUsuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author edvin
  */
 @Repository
-public interface RolRepository extends JpaRepository<Rol,Integer>{
-    public Optional<Rol> findByIdRol(Integer idRol);
+public interface CarreraUsuarioRepository extends JpaRepository<CarrerasUsuario, Integer>{
+    
 }

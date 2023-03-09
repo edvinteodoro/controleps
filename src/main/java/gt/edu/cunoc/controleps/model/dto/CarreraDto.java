@@ -12,7 +12,7 @@ import gt.edu.cunoc.controleps.model.entity.Carrera;
  */
 public class CarreraDto {
 
-    private Integer id;
+    private Integer idCarrera;
     private String titulo;
 
     public CarreraDto() {
@@ -20,7 +20,7 @@ public class CarreraDto {
 
     public CarreraDto(Carrera carrera) {
         this.titulo = carrera.getTitulo();
-        this.id = carrera.getIdCarrera();
+        this.idCarrera = carrera.getIdCarrera();
     }
 
     public String getTitulo() {
@@ -31,12 +31,12 @@ public class CarreraDto {
         this.titulo = titulo;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdCarrera() {
+        return idCarrera;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdCarrera(Integer idCarrera) {
+        this.idCarrera = idCarrera;
     }
 
 }

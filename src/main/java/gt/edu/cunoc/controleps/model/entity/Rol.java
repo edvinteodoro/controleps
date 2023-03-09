@@ -39,6 +39,15 @@ public class Rol implements Serializable {
     @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
+    @Basic(optional = false)
+    @Column(name = "contiene_carrera")
+    private Boolean contieneCarrera;
+    @Basic(optional = false)
+    @Column(name = "contiene_registro")
+    private Boolean contieneRegistro;
+    @Basic(optional = false)
+    @Column(name = "contiene_colegiado")
+    private Boolean contieneColegiado;
     @ManyToMany(mappedBy = "rolList")
     private List<Permisos> permisosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRolFk")
@@ -46,15 +55,18 @@ public class Rol implements Serializable {
 
     public Rol() {
     }
-    
+
     public Rol(RolDto rolDto) {
-        this.titulo=rolDto.getTitulo();
-        this.permisosList=rolDto.getPermisos().stream().map(permisoDto -> new Permisos()).collect(Collectors.toList());
+        this.titulo = rolDto.getTitulo();
+        this.permisosList = rolDto.getPermisos().stream().map(permisoDto -> new Permisos()).collect(Collectors.toList());
     }
 
-    public Rol(Integer idRol, String titulo) {
+    public Rol(Integer idRol, String titulo, Boolean contieneCarrera, Boolean contieneRegistro, Boolean contieneColegiado) {
         this.idRol = idRol;
         this.titulo = titulo;
+        this.contieneCarrera = contieneCarrera;
+        this.contieneRegistro = contieneRegistro;
+        this.contieneColegiado = contieneColegiado;
     }
 
     public Integer getIdRol() {
@@ -71,6 +83,30 @@ public class Rol implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public Boolean getContieneCarrera() {
+        return contieneCarrera;
+    }
+
+    public void setContieneCarrera(Boolean contieneCarrera) {
+        this.contieneCarrera = contieneCarrera;
+    }
+
+    public Boolean getContieneRegistro() {
+        return contieneRegistro;
+    }
+
+    public void setContieneRegistro(Boolean contieneRegistro) {
+        this.contieneRegistro = contieneRegistro;
+    }
+
+    public Boolean getContieneColegiado() {
+        return contieneColegiado;
+    }
+
+    public void setContieneColegiado(Boolean contieneColegiado) {
+        this.contieneColegiado = contieneColegiado;
     }
 
     public List<Permisos> getPermisosList() {
@@ -113,5 +149,5 @@ public class Rol implements Serializable {
     public String toString() {
         return "gt.edu.cunoc.controleps.model.entity.Rol[ idRol=" + idRol + " ]";
     }
-    
+
 }

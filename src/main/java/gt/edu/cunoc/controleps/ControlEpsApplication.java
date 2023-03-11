@@ -7,9 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.unit.DataSize;
 
 @SpringBootApplication
+@EnableAsync
 @EnableConfigurationProperties(StorageConfig.class)
 public class ControlEpsApplication {
 

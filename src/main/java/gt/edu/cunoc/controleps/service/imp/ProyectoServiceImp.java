@@ -23,6 +23,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,13 +39,16 @@ public class ProyectoServiceImp implements ProyectoService {
     private final UsuarioService usuarioService;
     private final EstadoEpsRepository estadoEpsRepository;
     private final CarreraUsuarioRepository carreraUsuarioRepository;
+    private final NotificationService notificacionService;
 
     public ProyectoServiceImp(ProyectoRepository proyectoRepository, UsuarioService usuarioService,
-            EstadoEpsRepository estadoEpsRepository, CarreraUsuarioRepository carreraUsuarioRepository) {
+            EstadoEpsRepository estadoEpsRepository, CarreraUsuarioRepository carreraUsuarioRepository,
+            NotificationService notificacionService) {
         this.proyectoRepository = proyectoRepository;
         this.usuarioService = usuarioService;
         this.estadoEpsRepository = estadoEpsRepository;
         this.carreraUsuarioRepository = carreraUsuarioRepository;
+        this.notificacionService = notificacionService;
     }
 
     @Override

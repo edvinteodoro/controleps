@@ -36,15 +36,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             + "ORDER BY COUNT(pe.idAnteproyecto) ASC "
             + "LIMIT 1")
     public Optional<Usuario> getSupervisorDisponible(Integer idCarrera, Integer idRol);
-    
-    @Query("SELECT u FROM Usuario u "
-            + "JOIN u.carrerasUsuarioList cu "
-            + "JOIN cu.idCarreraFk c "
-            + "JOIN u.idRolFk r "
-            + "LEFT JOIN cu.proyectoEpsSupervisorList pe "
-            + "WHERE c.idCarrera = :idCarrera AND r.idRol = :idRol "
-            + "GROUP BY u.idUsuario "
-            + "ORDER BY COUNT(pe.idAnteproyecto) ASC "
+
+    @Query("SELECT u FROM Usuario u WHERE u.idRolFk.idRol=:idRol "
+            + "ORDER BY ( "
+            + "  SELECT COUNT(p) FROM ProyectoEps p WHERE p.idSecretariaFk = u "
+            + ") ASC "
             + "LIMIT 1")
-    public Optional<Usuario> getSecretariaDisponible(Integer idCarrera, Integer idRol);
+    public Optional<Usuario> getSecretariaDisponible(Integer idRol);
 }

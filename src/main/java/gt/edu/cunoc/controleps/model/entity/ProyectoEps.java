@@ -4,6 +4,7 @@
  */
 package gt.edu.cunoc.controleps.model.entity;
 
+import gt.edu.cunoc.controleps.model.dto.ProyectoDto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ProyectoEps implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-    @Basic(optional = false)
+    @Basic(optional=true)
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
@@ -68,13 +69,18 @@ public class ProyectoEps implements Serializable {
     @ManyToOne(optional = false)
     private CarrerasUsuario idCarrerasSupervisorFk;
     @JoinColumn(name = "id_carreras_asesor_fk", referencedColumnName = "id_usuario_carrera")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional=true)
     private CarrerasUsuario idCarrerasAsesorFk;
     @JoinColumn(name = "id_secretaria_fk", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idSecretariaFk;
 
     public ProyectoEps() {
+    }
+    
+    public ProyectoEps(ProyectoDto proyectoDto) {
+        this.titulo=proyectoDto.getTitulo();
+        this.coordenadas=proyectoDto.getCoordenadas();
     }
 
     public ProyectoEps(Integer idAnteproyecto) {

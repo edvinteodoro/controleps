@@ -13,6 +13,7 @@ import gt.edu.cunoc.controleps.repository.CarreraRepository;
 import gt.edu.cunoc.controleps.repository.CarreraUsuarioRepository;
 import gt.edu.cunoc.controleps.repository.UsuarioRepository;
 import gt.edu.cunoc.controleps.service.UsuarioService;
+import gt.edu.cunoc.controleps.utils.RolUtils;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -77,13 +78,18 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public Optional<Usuario> getUsuarioDisponible(Integer idCarrera, Integer idRol) {
-        return usuarioRepository.getSupervisorDisponible(idCarrera, idRol);
+    public Optional<Usuario> getSupervisorDisponible(Integer idCarrera) {
+        return usuarioRepository.getSupervisorDisponible(idCarrera, RolUtils.ID_ROL_SUPERVISOR);
     }
 
     @Override
     public Optional<Usuario> getUsuarioPorRegistor(String registroAcademico) {
         return usuarioRepository.findByRegistroAcademico(registroAcademico);
+    }
+
+    @Override
+    public Optional<Usuario> getSecretariaDisponible() {
+        return usuarioRepository.getSecretariaDisponible(RolUtils.ID_ROL_SECRETARIA);
     }
 
 }

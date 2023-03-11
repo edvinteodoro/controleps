@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login").permitAll() // Allow unauthenticated access to the login endpoint
-                .anyRequest().authenticated()) // Require authentication for all other paths
+                .anyRequest().permitAll()) // Require authentication for all other paths
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userDetailsService)

@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -93,6 +94,8 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_rol_fk", referencedColumnName = "id_rol")
     @ManyToOne(optional = false)
     private Rol idRolFk;
+    @OneToOne(mappedBy = "idUsuarioFk", cascade = CascadeType.ALL)
+    private TokenConfirmacion tokenConfirmacion;
 
     public Usuario() {
     }
@@ -271,6 +274,22 @@ public class Usuario implements Serializable {
 
     public void setIdRolFk(Rol idRolFk) {
         this.idRolFk = idRolFk;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public TokenConfirmacion getTokenConfirmacion() {
+        return tokenConfirmacion;
+    }
+
+    public void setTokenConfirmacion(TokenConfirmacion tokenConfirmacion) {
+        this.tokenConfirmacion = tokenConfirmacion;
     }
 
     @Override

@@ -7,10 +7,8 @@ package gt.edu.cunoc.controleps.controller;
 import gt.edu.cunoc.controleps.model.dto.UsuarioDto;
 import gt.edu.cunoc.controleps.service.UsuarioService;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +48,7 @@ public class UsuarioController {
             .orElseThrow(()-> new RuntimeException("No se pudo encontrar el usuario logeado")));  
             return ResponseEntity.ok(usuario.getCarreras());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
     
@@ -59,13 +57,17 @@ public class UsuarioController {
         try {
             return ResponseEntity.ok(new UsuarioDto(usuarioService.crearUsuario(usuarioDto)));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            System.out.println("crear usuario: "+ e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
     @PutMapping
     @PreAuthorize("hasRole('ROLE_Secretaria')")
-    public ResponseEntity<UsuarioDto> actualizarUsuario(@RequestBody UsuarioDto usuarioDto){
-        return ResponseEntity.ok(new UsuarioDto(usuarioService.crearUsuario(usuarioDto)));
+    public ResponseEntity actualizarUsuario(@RequestBody UsuarioDto usuarioDto){
+        try {
+            return ResponseEntity.ok(new UsuarioDto(usuarioService.crearUsuario(usuarioDto)));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
-    
 }

@@ -6,6 +6,7 @@ package gt.edu.cunoc.controleps.service.imp;
 
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import gt.edu.cunoc.controleps.repository.UsuarioRepository;
+import gt.edu.cunoc.controleps.utils.UsuarioUtils;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,10 +30,13 @@ public class UsuarioDetailsServiceImp implements UserDetailsService {
         if (!optionalUser.isPresent()) {
             optionalUser = usuarioRepository.findByNumeroColegiado(username);
             if (!optionalUser.isPresent()) {
-                throw new UsernameNotFoundException("User not found: " + username);
+                throw new UsernameNotFoundException("No se encontro el usuario: " + username);
             }
         }
         Usuario usuario = optionalUser.get();
+        if(!usuario.getEstadoCuenta().equals(UsuarioUtils.USUARIO_ACTIVO)){
+            throw new UsernameNotFoundException("Este usuario esta inactivo: " + username);
+        }
         return org.springframework.security.core.userdetails.User.withUsername(username).password(usuario.getPassword()).roles("ADMIN")
                 .authorities(usuario.getIdRolFk().getTitulo()).build();
     }

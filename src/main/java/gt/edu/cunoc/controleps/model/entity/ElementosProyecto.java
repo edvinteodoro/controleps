@@ -51,7 +51,6 @@ public class ElementosProyecto implements Serializable {
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @Basic(optional = false)
     @Column(name = "fecha_modificacion")
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
@@ -60,7 +59,7 @@ public class ElementosProyecto implements Serializable {
     private Date fechaInicio;
     @Basic(optional = false)
     @Column(name = "estado")
-    private int estado;
+    private String estado;
     @OneToMany(mappedBy = "idElementosProyectoFk")
     private List<Comentario> comentarioList;
     @JoinColumn(name = "id_elemento_fk", referencedColumnName = "id_elemento")
@@ -72,17 +71,17 @@ public class ElementosProyecto implements Serializable {
 
     public ElementosProyecto() {
     }
+    
+    public ElementosProyecto(Date fechaCreacion, String estado, String informacion, Elemento elemento, EtapasProyecto etapaProyecto) {
+        this.fechaCreacion=fechaCreacion;
+        this.estado = estado;
+        this.informacion = informacion;
+        this.idElementoFk=elemento;
+        this.idEtapaProyectoFk = etapaProyecto;
+    }
 
     public ElementosProyecto(Integer idElementosProyecto) {
         this.idElementosProyecto = idElementosProyecto;
-    }
-
-    public ElementosProyecto(Integer idElementosProyecto, String informacion, Date fechaCreacion, Date fechaModificacion, int estado) {
-        this.idElementosProyecto = idElementosProyecto;
-        this.informacion = informacion;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaModificacion = fechaModificacion;
-        this.estado = estado;
     }
 
     public Integer getIdElementosProyecto() {
@@ -125,11 +124,11 @@ public class ElementosProyecto implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

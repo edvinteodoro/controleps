@@ -4,6 +4,7 @@
  */
 package gt.edu.cunoc.controleps.service;
 
+import gt.edu.cunoc.controleps.model.dto.ActivarUsuarioDto;
 import gt.edu.cunoc.controleps.model.dto.UsuarioDto;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import java.util.List;
@@ -15,9 +16,10 @@ import java.util.Optional;
  */
 public interface UsuarioService {
     public List<Usuario> getAll();
-    public Usuario crearUsuario(UsuarioDto usuarioDto);
+    public Usuario crearUsuario(UsuarioDto usuarioDto) throws Exception;
     public Usuario actualizarUsuario(UsuarioDto usuarioDto);
     public Optional<Usuario> getSupervisorDisponible(Integer idCarrera);
     public Optional<Usuario> getUsuarioPorRegistor(String registroAcademico);
     public Optional<Usuario> getSecretariaDisponible();
+    public Usuario activarUsuario(ActivarUsuarioDto activarUsuarioDto) throws Exception;
 }

@@ -22,6 +22,7 @@
     <class>gt.edu.cunoc.controleps.model.entity.Constantes</class>
     <class>gt.edu.cunoc.controleps.model.entity.EstadoEps</class>
     <class>gt.edu.cunoc.controleps.model.entity.Comentario</class>
+    <class>gt.edu.cunoc.controleps.model.entity.TokenConfirmacion</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

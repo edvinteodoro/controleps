@@ -4,13 +4,15 @@
  */
 package gt.edu.cunoc.controleps.service.imp;
 
-import gt.edu.cunoc.controleps.model.entity.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 /**
  *
@@ -19,27 +21,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationService {
 
-    private final JavaMailSender javaMailSender;
+     private final JavaMailSender javaMailSender;
+    private final SpringTemplateEngine templateEngine;
 
-    public NotificationService(JavaMailSender javaMailSender) {
+    public NotificationService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine) {
         this.javaMailSender = javaMailSender;
+        this.templateEngine = templateEngine;
     }
 
     @Async
-    public void sendNotificaitoin(String email) throws MailException, InterruptedException {
+    public void sendNotification(String email, String subject, String link) throws MailException, InterruptedException, MessagingException {
+        Context context = new Context();
+        context.setVariable("link", link);
 
-        System.out.println("Sleeping now...");
-        Thread.sleep(10000);
+        String html = templateEngine.process("email-template.html", context);
 
-        System.out.println("Sending email...");
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(email);
-        mail.setFrom("edvinteodoro2@gmail.com");
-        mail.setSubject("Spring Boot is awesome!");
-        mail.setText("Why aren't you using Spring Boot?");
-        javaMailSender.send(mail);
+        helper.setTo(email);
+        helper.setSubject(subject);
+        helper.setText(html, true);
 
-        System.out.println("Email Sent!");
+        javaMailSender.send(message);
     }
 }

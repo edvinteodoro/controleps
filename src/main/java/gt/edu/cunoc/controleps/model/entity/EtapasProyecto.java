@@ -22,6 +22,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.util.ArrayList;
 
 /**
  *
@@ -47,7 +48,6 @@ public class EtapasProyecto implements Serializable {
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @Basic(optional = false)
     @Column(name = "fecha_modificacion")
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
@@ -69,6 +69,13 @@ public class EtapasProyecto implements Serializable {
     private ProyectoEps idProyectoEpsFk;
 
     public EtapasProyecto() {
+    }
+    
+    public EtapasProyecto(Date fechaCreacion, EstadoEps estadoEps, Etapa etapa, ProyectoEps proyectoEps) {
+        this.fechaCreacion=fechaCreacion;
+        this.estadoFk=estadoEps;
+        this.idEtapaFk=etapa;
+        this.idProyectoEpsFk=proyectoEps;
     }
 
     public EtapasProyecto(Integer idEtapaProyecto) {

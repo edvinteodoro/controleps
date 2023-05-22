@@ -291,6 +291,10 @@ public class Usuario implements Serializable {
     public void setTokenConfirmacion(TokenConfirmacion tokenConfirmacion) {
         this.tokenConfirmacion = tokenConfirmacion;
     }
+    
+    public String getNombreCompleto(){
+        return this.nombres+' '+this.apellidos;
+    }
 
     @Override
     public int hashCode() {

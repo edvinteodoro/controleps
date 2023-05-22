@@ -25,9 +25,16 @@ public interface ProyectoRepository extends JpaRepository<ProyectoEps, Integer> 
             + "WHERE p.idCarrerasUsuarioFk.idUsuarioFk.registroAcademico = :registroAcademico")
     public List<ProyectoEps> getProyectosUsuario(String registroAcademico);
     
+   @Query("SELECT p FROM ProyectoEps p "
+        + "JOIN p.etapasProyectoList e "
+        + "WHERE p.idSecretariaFk.registroAcademico = :registroAcademico "
+        + "AND e.idEtapaFk.idEtapa = :idEtapa "
+        + "AND e.estadoFk.idEstadoEps = :idEstado")
+    public List<ProyectoEps> getProyectosSecretaria(String registroAcademico,Integer idEtapa, Integer idEstado);
+    
     @Query("SELECT p FROM ProyectoEps p "
-            + "WHERE p.idSecretariaFk.registroAcademico = :registroAcademico")
-    public List<ProyectoEps> getProyectosSecretaria(String registroAcademico);
+            + "WHERE p.idCarrerasSupervisorFk.idUsuarioFk.registroAcademico = :registroAcademico")
+    public List<ProyectoEps> getProyectosSupervisor(String registroAcademico);
 
     public Optional<ProyectoEps> findByIdAnteproyecto(Integer idAnteproyecto);
 }

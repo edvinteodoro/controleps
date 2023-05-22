@@ -23,6 +23,8 @@ public class ProyectoDto {
     private CarreraDto carrera;
     private List<Requisito> requisitos;
     private UsuarioDto usuario;
+    private UsuarioDto supervisor;
+    private UsuarioDto coordinador;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private MultipartFile constanciaInscripcion;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -33,6 +35,8 @@ public class ProyectoDto {
     private MultipartFile cartaAsesorSupervisor;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private MultipartFile anteproyecto;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private UsuarioDto asesor;
 
     public ProyectoDto() {
     }
@@ -57,6 +61,8 @@ public class ProyectoDto {
         this.coordenadas = proyecto.getCoordenadas();
         this.carrera = new CarreraDto(proyecto.getIdCarrerasUsuarioFk().getIdCarreraFk());
         this.usuario = new UsuarioDto(proyecto.getIdCarrerasUsuarioFk().getIdUsuarioFk());
+        this.asesor = new UsuarioDto(proyecto.getIdAsesorFk());
+        this.supervisor = new UsuarioDto(proyecto.getIdCarrerasSupervisorFk().getIdUsuarioFk());
         if (proyecto.getEtapasProyectoList() != null && !proyecto.getEtapasProyectoList().isEmpty()) {
             this.requisitos = new ArrayList<>();
             for (ElementosProyecto elemento : proyecto.getEtapasProyectoList().get(0).getElementosProyectoList()) {
@@ -152,6 +158,30 @@ public class ProyectoDto {
 
     public void setRequisitos(List<Requisito> requisitos) {
         this.requisitos = requisitos;
+    }
+
+    public UsuarioDto getAsesor() {
+        return asesor;
+    }
+
+    public void setAsesor(UsuarioDto asesor) {
+        this.asesor = asesor;
+    }
+
+    public UsuarioDto getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(UsuarioDto supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public UsuarioDto getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(UsuarioDto coordinador) {
+        this.coordinador = coordinador;
     }
 
     public static class Requisito {

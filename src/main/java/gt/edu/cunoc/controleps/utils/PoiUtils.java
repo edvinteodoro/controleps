@@ -4,22 +4,30 @@
  */
 package gt.edu.cunoc.controleps.utils;
 
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author edvin
  */
+@Component
 public class PoiUtils {
-    public MultipartFile generarDocumento(Map<String, Object> data, InputStream template, String nombreDocumento) throws Exception {
+
+    public MultipartFile generarDocumento(Map<String, Object> data, InputStream template, String type, String nombreDocumento) throws Exception {
         XWPFDocument document = new XWPFDocument(template);
         for (XWPFParagraph paragraph : document.getParagraphs()) {
             for (XWPFRun run : paragraph.getRuns()) {
@@ -36,7 +44,22 @@ public class PoiUtils {
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
-        MultipartFile multipart = new MockMultipartFile(nombreDocumento, new ByteArrayInputStream(baos.toByteArray()));
-        return multipart;
+        return convertirDocumento(document,nombreDocumento);
+    }
+
+    public MultipartFile convertirDocumento(XWPFDocument document,String nombreDocumento) throws Exception {
+        PdfOptions options = PdfOptions.create();
+
+        // Convert DOC to PDF
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfConverter.getInstance().convert(document, baos, options);
+
+        // Construct a MultipartFile from the generated PDF content
+        MultipartFile pdfFile = new MockMultipartFile(nombreDocumento, nombreDocumento, "application/pdf", baos.toByteArray());
+
+        document.close();
+        baos.close();
+
+        return pdfFile;
     }
 }

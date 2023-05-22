@@ -20,6 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -57,7 +58,11 @@ public class ProyectoEps implements Serializable {
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
+    @Basic(optional = true)
+    @Column(name = "colegiado_asesor")
+    private String colegiadoAsesor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyectoEpsFk")
+    @OrderBy("idEtapaProyecto DESC")
     private List<EtapasProyecto> etapasProyectoList;
     @JoinColumn(name = "id_estado_eps_fk", referencedColumnName = "id_estado_eps")
     @ManyToOne(optional = false)
@@ -68,9 +73,9 @@ public class ProyectoEps implements Serializable {
     @JoinColumn(name = "id_carreras_supervisor_fk", referencedColumnName = "id_usuario_carrera")
     @ManyToOne(optional = false)
     private CarrerasUsuario idCarrerasSupervisorFk;
-    @JoinColumn(name = "id_carreras_asesor_fk", referencedColumnName = "id_usuario_carrera")
+    @JoinColumn(name = "id_asesor_fk", referencedColumnName = "id_usuario")
     @ManyToOne(optional=true)
-    private CarrerasUsuario idCarrerasAsesorFk;
+    private Usuario idAsesorFk;
     @JoinColumn(name = "id_secretaria_fk", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idSecretariaFk;
@@ -135,6 +140,14 @@ public class ProyectoEps implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public String getColegiadoAsesor() {
+        return colegiadoAsesor;
+    }
+
+    public void setColegiadoAsesor(String colegiadoAsesor) {
+        this.colegiadoAsesor = colegiadoAsesor;
+    }
+
     public List<EtapasProyecto> getEtapasProyectoList() {
         return etapasProyectoList;
     }
@@ -167,12 +180,12 @@ public class ProyectoEps implements Serializable {
         this.idCarrerasSupervisorFk = idCarrerasSupervisorFk;
     }
 
-    public CarrerasUsuario getIdCarrerasAsesorFk() {
-        return idCarrerasAsesorFk;
+    public Usuario getIdAsesorFk() {
+        return idAsesorFk;
     }
 
-    public void setIdCarrerasAsesorFk(CarrerasUsuario idCarrerasAsesorFk) {
-        this.idCarrerasAsesorFk = idCarrerasAsesorFk;
+    public void setIdAsesorFk(Usuario idAsesorFk) {
+        this.idAsesorFk = idAsesorFk;
     }
 
     public Usuario getIdSecretariaFk() {

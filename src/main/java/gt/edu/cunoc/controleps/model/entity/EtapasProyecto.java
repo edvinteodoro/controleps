@@ -19,6 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -54,7 +55,11 @@ public class EtapasProyecto implements Serializable {
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
+    @Basic(optional = false)
+    @Column(name = "editable")
+    private Boolean editable;
     @OneToMany(mappedBy = "etapaProyectoFk")
+    @OrderBy("idComentario DESC")
     private List<Comentario> comentarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEtapaProyectoFk")
     private List<ElementosProyecto> elementosProyectoList;
@@ -76,6 +81,7 @@ public class EtapasProyecto implements Serializable {
         this.estadoFk=estadoEps;
         this.idEtapaFk=etapa;
         this.idProyectoEpsFk=proyectoEps;
+        this.editable=false;
     }
 
     public EtapasProyecto(Integer idEtapaProyecto) {
@@ -120,6 +126,14 @@ public class EtapasProyecto implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
+
     public List<Comentario> getComentarioList() {
         return comentarioList;
     }
@@ -129,7 +143,11 @@ public class EtapasProyecto implements Serializable {
     }
 
     public List<ElementosProyecto> getElementosProyectoList() {
+        if(elementosProyectoList==null){
+            return new ArrayList<>();
+        }else{
         return elementosProyectoList;
+        }
     }
 
     public void setElementosProyectoList(List<ElementosProyecto> elementosProyectoList) {

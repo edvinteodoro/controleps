@@ -36,12 +36,8 @@ public class CarrerasUsuario implements Serializable {
     @JoinColumn(name = "id_usuario_fk", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuarioFk;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasSupervisorFk")
     private List<ProyectoEps> proyectoEpsSupervisorList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasAsesorFk")
-    private List<ProyectoEps> proyectoEpsAsesorList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarrerasUsuarioFk")
     private List<ProyectoEps> proyectoEpsList;
 
@@ -100,14 +96,6 @@ public class CarrerasUsuario implements Serializable {
 
     public void setProyectoEpsSupervisorList(List<ProyectoEps> proyectoEpsSupervisorList) {
         this.proyectoEpsSupervisorList = proyectoEpsSupervisorList;
-    }
-
-    public List<ProyectoEps> getProyectoEpsAsesorList() {
-        return proyectoEpsAsesorList;
-    }
-
-    public void setProyectoEpsAsesorList(List<ProyectoEps> proyectoEpsAsesorList) {
-        this.proyectoEpsAsesorList = proyectoEpsAsesorList;
     }
 
     public List<ProyectoEps> getProyectoEpsList() {

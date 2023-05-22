@@ -9,7 +9,7 @@ package gt.edu.cunoc.controleps.utils;
  * @author edvin
  */
 public class UsuarioUtils {
-    public static final String REGEX="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+    public static final String REGEX="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})";
     public static final String USUARIO_INACTIVO="INACTIVO";
     public static final String USUARIO_ACTIVO="ACTIVO";
 }

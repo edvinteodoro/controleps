@@ -43,6 +43,9 @@ public class Etapa implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
+    @Column(name = "icono")
+    private String icono;
+    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -84,6 +87,14 @@ public class Etapa implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }

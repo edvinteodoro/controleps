@@ -68,6 +68,12 @@ public class Comentario implements Serializable {
         this.texto = texto;
         this.fechaCreacion = fechaCreacion;
     }
+    public Comentario(String texto, Date fechaCreacion, Usuario usuario,EtapasProyecto etapaProyecto) {
+        this.texto = texto;
+        this.fechaCreacion = fechaCreacion;
+        this.idUsuarioFk = usuario;
+        this.etapaProyectoFk = etapaProyecto;
+    }
 
     public Integer getIdComentario() {
         return idComentario;

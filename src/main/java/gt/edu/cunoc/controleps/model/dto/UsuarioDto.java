@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import gt.edu.cunoc.controleps.model.entity.Usuario;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -176,10 +177,19 @@ public class UsuarioDto {
     }
 
     public List<CarreraDto> getCarreras() {
+        if (this.carreras == null) {
+            return new ArrayList<>();
+        }
         return carreras;
     }
 
     public void setCarreras(List<CarreraDto> carreras) {
         this.carreras = carreras;
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioDto{" + "correo=" + correo + ", fechaNacimiento=" + fechaNacimiento + ", nombres=" + nombres + ", apellidos=" + apellidos + ", registroAcademico=" + registroAcademico + ", numeroColegiado=" + numeroColegiado + ", telefono=" + telefono + ", dpi=" + dpi + ", direccion=" + direccion + ", estadoCuenta=" + estadoCuenta + ", carreras=" + carreras + ", rol=" + rol + '}';
+    }
+
 }

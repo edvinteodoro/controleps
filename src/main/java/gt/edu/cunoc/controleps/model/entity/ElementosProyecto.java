@@ -4,6 +4,7 @@
  */
 package gt.edu.cunoc.controleps.model.entity;
 
+import gt.edu.cunoc.controleps.utils.ProyectoUtils;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -71,12 +72,20 @@ public class ElementosProyecto implements Serializable {
 
     public ElementosProyecto() {
     }
-    
+
+    public ElementosProyecto(String informacion, Date fechaCreacion, Elemento idElemento,EtapasProyecto etapaProyecto) {
+        this.informacion = informacion;
+        this.fechaCreacion = fechaCreacion;
+        this.estado = ProyectoUtils.ESTADO_ACTIVO_ELEMENTO_PROYECTO;
+        this.idElementoFk = idElemento;
+        this.idEtapaProyectoFk=etapaProyecto;
+    }
+
     public ElementosProyecto(Date fechaCreacion, String estado, String informacion, Elemento elemento, EtapasProyecto etapaProyecto) {
-        this.fechaCreacion=fechaCreacion;
+        this.fechaCreacion = fechaCreacion;
         this.estado = estado;
         this.informacion = informacion;
-        this.idElementoFk=elemento;
+        this.idElementoFk = elemento;
         this.idEtapaProyectoFk = etapaProyecto;
     }
 
@@ -180,5 +189,5 @@ public class ElementosProyecto implements Serializable {
     public String toString() {
         return "gt.edu.cunoc.controleps.model.entity.ElementosProyecto[ idElementosProyecto=" + idElementosProyecto + " ]";
     }
-    
+
 }

@@ -6,6 +6,10 @@ package gt.edu.cunoc.controleps.service.imp;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import java.net.URL;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -44,5 +48,31 @@ public class NotificationService {
         helper.setText(html, true);
 
         javaMailSender.send(message);
+    }
+    
+    @Async
+    public void enviarConvocatoria(String email, String subject, String message, String url) throws MailException, InterruptedException, MessagingException {
+        MimeMessage messagex = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(messagex, true);
+
+        helper.setTo(email);
+        helper.setSubject(subject);
+        helper.setText(message);
+
+        try {
+            // Create a URL resource from the Minio URL
+            Resource resource = new UrlResource(new URL(url));
+
+            // Extract the file name from the URL
+            String fileName = resource.getFilename();
+
+            // Attach the document from the URL
+            helper.addAttachment(fileName, resource);
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        }
+
+        javaMailSender.send(messagex);
     }
 }

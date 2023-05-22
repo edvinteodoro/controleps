@@ -43,4 +43,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             + ") ASC "
             + "LIMIT 1")
     public Optional<Usuario> getSecretariaDisponible(Integer idRol);
+    
+    @Query("SELECT u FROM Usuario u "
+            + "WHERE u.registroAcademico = :nombreUsuario OR "
+            + "u.numeroColegiado = :nombreUsuario")
+    public Optional<Usuario> getUsuarioPorNombreUsuario(String nombreUsuario);
 }

@@ -43,6 +43,8 @@ public class Elemento implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "key")
+    private String key;
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
@@ -81,6 +83,14 @@ public class Elemento implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getTipo() {

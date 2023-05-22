@@ -45,6 +45,7 @@ public class StorageServiceImp implements StorageService {
 
     @Override
     public String saveFile(MultipartFile file) throws Exception {
+        //System.out.println("save");
         if (!file.isEmpty()) {
             try (InputStream inputStream = file.getInputStream()) {
                 String fileName = file.getOriginalFilename();
@@ -55,10 +56,20 @@ public class StorageServiceImp implements StorageService {
                         .stream(inputStream, inputStream.available(), -1)
                         .build());
 
-                return fileName;
+                return objectName;
             }
         } else {
             throw new StorageException("Fallo al guardar el archivo vacio.");
         }
+    }
+
+    @Override
+    public String getFileUrl(String url) throws Exception {
+        return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                .method(Method.GET)
+                .bucket(bucketName)
+                .object(url)
+                .expiry(60)
+                .build());
     }
 }

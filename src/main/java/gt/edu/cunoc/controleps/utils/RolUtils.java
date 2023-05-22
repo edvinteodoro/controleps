@@ -12,4 +12,5 @@ public final class RolUtils {
     public static final Integer ID_ROL_ESTUDIANTE=1;
     public static final Integer ID_ROL_SUPERVISOR=2;
     public static final Integer ID_ROL_SECRETARIA=4;
+    public static final Integer ID_ROL_ASESOR=3;
 }
